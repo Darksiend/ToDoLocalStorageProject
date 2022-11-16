@@ -187,3 +187,15 @@ function okEditing() {
 function cancelEditing() {
   document.getElementById("edit-task").style.display = "none";
 }
+
+function getCurrentDateTime() {
+  let date = new Date();
+  console.log(date);
+  let one = new Date("2022-11-27T21:54");
+  console.log(one);
+  let currentDate = Date.now();
+  dayToDate = Math.floor((one - currentDate) / 1000 / 60 / 60 / 24);
+  console.log(dayToDate);
+}
+
+getCurrentDateTime();
