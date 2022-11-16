@@ -132,16 +132,21 @@ function updateDom() {
     addToDoToDOM(todo);
   });
 }
-function deleteTask(id) {
+function deleteTask(event) {
   let arrOfToDos = getArrayOfToDo();
   let index;
+  console.log(event.path[1].id);
+
   for (let i = 0; i < arrOfToDos.length; i++) {
-    if (arrOfToDos[i].id === id) {
-      index = i;
+    console.log(arrOfToDos[i].id);
+    if (arrOfToDos[i].id == event.path[1].id) {
+      arrOfToDos.splice(i, 1);
+      localStorage.setItem("todos", JSON.stringify(arrOfToDos));
+      console.log("deleted");
     }
   }
-  console.log(index);
-  console.log(arrOfToDos);
+
+  updateDom();
 }
 function taskInLocalStorage() {}
 function clearToDoList() {
@@ -150,5 +155,3 @@ function clearToDoList() {
     toDoList.removeChild(toDoList.firstChild);
   }
 }
-
-deleteTask(3);
