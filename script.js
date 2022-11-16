@@ -2,7 +2,6 @@ if (getArrayOfToDo()) {
   let todos = getArrayOfToDo();
   todos.forEach((todo) => {
     addToDoToDOM(todo);
-    console.log("wo");
   });
 }
 
@@ -83,15 +82,26 @@ function addToDoToDOM(todo) {
   let doneBtn = document.createElement("button");
   doneBtn.textContent = "Not Done:(";
   doneBtn.classList.add("todo-item-btn");
-
+  let deleteBtn = document.createElement("button");
+  deleteBtn.classList.add("delete-btn");
+  deleteBtn.textContent = "Delete this task";
+  deleteBtn.onclick = deleteTask;
   if (todo.isDone == true) {
     doneBtn.style.backgroundColor = "Green";
+    doneBtn.textContent = "Done:)";
   } else if (todo.isDone == false) {
     doneBtn.style.backgroundColor = "Red";
   }
   doneBtn.onclick = toggleIsDone;
 
-  todoItem.append(todoName, todoDescription, todoStart, todoEnd, doneBtn);
+  todoItem.append(
+    todoName,
+    todoDescription,
+    todoStart,
+    todoEnd,
+    doneBtn,
+    deleteBtn
+  );
 
   document.getElementById("todo-list").append(todoItem);
 }
@@ -121,9 +131,18 @@ function updateDom() {
   getArrayOfToDo().forEach((todo) => {
     addToDoToDOM(todo);
   });
-  addToDoToDOM(arrOfTodo);
 }
-function deleteTask() {}
+function deleteTask(id) {
+  let arrOfToDos = getArrayOfToDo();
+  let index;
+  for (let i = 0; i < arrOfToDos.length; i++) {
+    if (arrOfToDos[i].id === id) {
+      index = i;
+    }
+  }
+  console.log(index);
+  console.log(arrOfToDos);
+}
 function taskInLocalStorage() {}
 function clearToDoList() {
   let toDoList = document.getElementById("todo-list");
@@ -131,3 +150,5 @@ function clearToDoList() {
     toDoList.removeChild(toDoList.firstChild);
   }
 }
+
+deleteTask(3);

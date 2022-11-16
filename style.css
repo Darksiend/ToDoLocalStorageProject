@@ -69,3 +69,9 @@ body {
 .red {
   background-color: red;
 }
+
+.delete-btn {
+  outline: none;
+  background-color: red;
+  height: 20px;
+}
