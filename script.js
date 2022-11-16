@@ -47,7 +47,7 @@ function getTaskFromInput() {
     id: getArrayOfToDo().length,
   };
   putInLocalStorage(obj);
-
+  addToDoToDOM(obj);
   console.log(JSON.stringify(obj, null, 2));
 }
 
@@ -68,13 +68,14 @@ function addToDoToDOM(todo) {
   todoItem.classList.add("todo-item");
   let todoName = document.createElement("div");
   todoName.classList.add("todo-name");
-  todoName.textContent = `${todo.id + 1}. ${todo.taskName}`;
+  todoName.textContent = `${todo.id + 1}.Task Name: ${todo.taskName}`;
+  todoItem.setAttribute("id", todo.id);
   let todoDescription = document.createElement("div");
   todoDescription.classList.add("tododescription");
-  todoDescription.textContent = todo.taskDescription;
+  todoDescription.textContent = `Task description: ${todo.taskDescription}`;
   let todoStart = document.createElement("div");
   todoStart.classList.add("todostartdate");
-  todoStart.textContent = todo.taskStartDateTime;
+  todoStart.textContent = `Start Date: ${todo.taskStartDateTime}`;
   let todoEnd = document.createElement("div");
   todoEnd.classList.add("taskEndDateTime");
   todoEnd.textContent = todo.taskEndDateTime;
