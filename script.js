@@ -6,7 +6,7 @@ if (getArrayOfToDo()) {
   });
 }
 
-document.getElementById("form").addEventListener("submit", () => {
+document.getElementById("form").addEventListener("submit", (event) => {
   console.log("submitted");
   event.preventDefault();
   getTaskFromInput();
@@ -45,6 +45,7 @@ function getTaskFromInput() {
     taskStartDateTime: taskStartDateTime,
     taskEndDateTime: taskEndDateTime,
     id: getArrayOfToDo().length,
+    isDone: false,
   };
   putInLocalStorage(obj);
   addToDoToDOM(obj);
@@ -79,11 +80,54 @@ function addToDoToDOM(todo) {
   let todoEnd = document.createElement("div");
   todoEnd.classList.add("taskEndDateTime");
   todoEnd.textContent = todo.taskEndDateTime;
-  todoItem.append(todoName, todoDescription, todoStart, todoEnd);
+  let doneBtn = document.createElement("button");
+  doneBtn.textContent = "Not Done:(";
+  doneBtn.classList.add("todo-item-btn");
+
+  if (todo.isDone == true) {
+    doneBtn.style.backgroundColor = "Green";
+  } else if (todo.isDone == false) {
+    doneBtn.style.backgroundColor = "Red";
+  }
+  doneBtn.onclick = toggleIsDone;
+
+  todoItem.append(todoName, todoDescription, todoStart, todoEnd, doneBtn);
+
   document.getElementById("todo-list").append(todoItem);
 }
 
-function toggleIsDone() {}
-function updateTask() {}
+function toggleIsDone(event) {
+  let todoId = event.path[1].id;
+  getArrayOfToDo()[todoId];
+  let arrOfTodos = JSON.parse(localStorage.todos);
+  arrOfTodos.forEach((todo) => {
+    if (todo.id == todoId) {
+      todo.isDone = !todo.isDone;
+      console.log("changed");
+      if (todo.isDone == true) {
+        event.target.style.backgroundColor = "Green";
+      }
+      localStorage.setItem("todos", JSON.stringify(arrOfTodos));
+    }
+  });
+  console.log(event.target);
+
+  console.log(JSON.stringify(arrOfTodos));
+  updateDom();
+}
+function updateDom() {
+  clearToDoList();
+
+  getArrayOfToDo().forEach((todo) => {
+    addToDoToDOM(todo);
+  });
+  addToDoToDOM(arrOfTodo);
+}
 function deleteTask() {}
 function taskInLocalStorage() {}
+function clearToDoList() {
+  let toDoList = document.getElementById("todo-list");
+  while (toDoList.firstChild) {
+    toDoList.removeChild(toDoList.firstChild);
+  }
+}
