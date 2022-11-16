@@ -9,8 +9,9 @@
 
 body {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   background-color: orange;
+  align-items: center;
 }
 
 #form {

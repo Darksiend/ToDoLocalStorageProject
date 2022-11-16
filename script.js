@@ -1,8 +1,17 @@
+if (getArrayOfToDo()) {
+  let todos = getArrayOfToDo();
+  todos.forEach((todo) => {
+    addToDoToDOM(todo);
+    console.log("wo");
+  });
+}
+
 document.getElementById("form").addEventListener("submit", () => {
   console.log("submitted");
   event.preventDefault();
   getTaskFromInput();
 });
+console.log(getArrayOfToDo());
 
 document.querySelectorAll("input[type ='text']").forEach((input) => {
   input.addEventListener("input", () => {
@@ -29,17 +38,50 @@ function getTaskFromInput() {
   let taskStartDateTime = document.getElementById("input-start-todo").value;
   let taskEndDateTime = document.getElementById("input-end-todo").value;
   console.log(taskEndDateTime);
+
   let obj = {
     taskName: taskName,
     taskDescription: taskDescription,
     taskStartDateTime: taskStartDateTime,
     taskEndDateTime: taskEndDateTime,
+    id: getArrayOfToDo().length,
   };
+  putInLocalStorage(obj);
 
   console.log(JSON.stringify(obj, null, 2));
 }
 
-function putInLocalStorage(obj) {}
+function putInLocalStorage(obj) {
+  console.log(localStorage.getItem("todos"));
+  let todos = JSON.parse(localStorage.getItem("todos") || "[]");
+  console.log(todos);
+  todos.push(obj);
+  localStorage.setItem("todos", JSON.stringify(todos));
+}
+
+function getArrayOfToDo() {
+  return JSON.parse(localStorage.getItem("todos") || "[]");
+}
+
+function addToDoToDOM(todo) {
+  let todoItem = document.createElement("div");
+  todoItem.classList.add("todo-item");
+  let todoName = document.createElement("div");
+  todoName.classList.add("todo-name");
+  todoName.textContent = `${todo.id + 1}. ${todo.taskName}`;
+  let todoDescription = document.createElement("div");
+  todoDescription.classList.add("tododescription");
+  todoDescription.textContent = todo.taskDescription;
+  let todoStart = document.createElement("div");
+  todoStart.classList.add("todostartdate");
+  todoStart.textContent = todo.taskStartDateTime;
+  let todoEnd = document.createElement("div");
+  todoEnd.classList.add("taskEndDateTime");
+  todoEnd.textContent = todo.taskEndDateTime;
+  todoItem.append(todoName, todoDescription, todoStart, todoEnd);
+  document.getElementById("todo-list").append(todoItem);
+}
+
 function toggleIsDone() {}
 function updateTask() {}
 function deleteTask() {}
