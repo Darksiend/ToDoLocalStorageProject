@@ -172,6 +172,16 @@ function okEditing() {
   let editedTaskDescription = document.getElementById(
     "edit-todo-description-input"
   ).value;
+  let arrOfToDos = getArrayOfToDo();
+  arrOfToDos.forEach((todo) => {
+    if (todo.id == editId) {
+      todo.taskName = editedTaskName;
+      todo.taskDescription = editedTaskDescription;
+      localStorage.setItem("todos", JSON.stringify(arrOfToDos));
+      updateDom();
+    }
+  });
+  document.getElementById("edit-task").style.display = "none";
 }
 
 function cancelEditing() {
