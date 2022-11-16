@@ -86,6 +86,11 @@ function addToDoToDOM(todo) {
   deleteBtn.classList.add("delete-btn");
   deleteBtn.textContent = "Delete this task";
   deleteBtn.onclick = deleteTask;
+  let editBtn = document.createElement("button");
+  editBtn.classList.add("edit-btn");
+  editBtn.value = "Edit";
+  editBtn.onclick = editTask;
+  editBtn.textContent = "Edit";
   if (todo.isDone == true) {
     doneBtn.style.backgroundColor = "Green";
     doneBtn.textContent = "Done:)";
@@ -100,7 +105,8 @@ function addToDoToDOM(todo) {
     todoStart,
     todoEnd,
     doneBtn,
-    deleteBtn
+    deleteBtn,
+    editBtn
   );
 
   document.getElementById("todo-list").append(todoItem);
@@ -154,4 +160,20 @@ function clearToDoList() {
   while (toDoList.firstChild) {
     toDoList.removeChild(toDoList.firstChild);
   }
+}
+let editId;
+function editTask() {
+  document.getElementById("edit-task").style.display = "flex";
+  editId = event.path[1].id;
+}
+
+function okEditing() {
+  let editedTaskName = document.getElementById("edit-todo-name-input").value;
+  let editedTaskDescription = document.getElementById(
+    "edit-todo-description-input"
+  ).value;
+}
+
+function cancelEditing() {
+  document.getElementById("edit-task").style.display = "none";
 }

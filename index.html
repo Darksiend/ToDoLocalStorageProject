@@ -23,6 +23,14 @@
       <input type="submit" id="submit-btn" value="Add Task" />
     </form>
     <div id="todo-list"></div>
+    <div id="edit-task">
+      <label for="edit-todo-name-input">New task Name</label>
+      <input type="text" id="edit-todo-name-input" />
+      <label for="edit-todo-description-input">New task description</label>
+      <input type="text" id="edit-todo-description-input" />
+      <button onclick="editTask()" id="edit">Edit</button>
+      <button onclick="cancelEditing()">Cancel</button>
+    </div>
   </body>
   <script src="script.js"></script>
 </html>
