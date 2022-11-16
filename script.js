@@ -75,10 +75,11 @@ function addToDoToDOM(todo) {
   todoDescription.textContent = `Task description: ${todo.taskDescription}`;
   let todoStart = document.createElement("div");
   todoStart.classList.add("todostartdate");
-  todoStart.textContent = `Start Date: ${todo.taskStartDateTime}`;
+  // todoStart.textContent = `Start Date: ${todo.taskStartDateTime}`;
   let todoEnd = document.createElement("div");
   todoEnd.classList.add("taskEndDateTime");
-  todoEnd.textContent = todo.taskEndDateTime;
+  daysToEnd = getCurrentDateTime(todo.taskEndDateTime);
+  todoEnd.textContent = `Days to end: ${daysToEnd}`;
   let doneBtn = document.createElement("button");
   doneBtn.textContent = "Not Done:(";
   doneBtn.classList.add("todo-item-btn");
@@ -188,14 +189,10 @@ function cancelEditing() {
   document.getElementById("edit-task").style.display = "none";
 }
 
-function getCurrentDateTime() {
-  let date = new Date();
-  console.log(date);
-  let one = new Date("2022-11-27T21:54");
-  console.log(one);
+function getCurrentDateTime(date) {
+  let endDate = new Date(date);
   let currentDate = Date.now();
-  dayToDate = Math.floor((one - currentDate) / 1000 / 60 / 60 / 24);
-  console.log(dayToDate);
+  return Math.floor((endDate - currentDate) / 1000 / 60 / 60 / 24);
 }
 
 getCurrentDateTime();
