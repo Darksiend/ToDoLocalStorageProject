@@ -155,7 +155,7 @@ function deleteTask(event) {
 
   updateDom();
 }
-function taskInLocalStorage() {}
+
 function clearToDoList() {
   let toDoList = document.getElementById("todo-list");
   while (toDoList.firstChild) {
@@ -163,9 +163,19 @@ function clearToDoList() {
   }
 }
 let editId;
+let nameOfEditTask;
+let descOfEditTask;
 function editTask() {
   document.getElementById("edit-task").style.display = "flex";
   editId = event.path[1].id;
+  getArrayOfToDo().forEach((todo) => {
+    if (todo.id == editId) {
+      nameOfEditTask = todo.taskName;
+      descOfEditTask = todo.taskDescription;
+    }
+  });
+  document.getElementById("edit-todo-name-input").value = nameOfEditTask;
+  document.getElementById("edit-todo-description-input").value = descOfEditTask;
 }
 
 function okEditing() {
@@ -182,6 +192,7 @@ function okEditing() {
       updateDom();
     }
   });
+
   document.getElementById("edit-task").style.display = "none";
 }
 
