@@ -80,6 +80,9 @@ function addToDoToDOM(todo) {
   todoEnd.classList.add("taskEndDateTime");
   daysToEnd = getCurrentDateTime(todo.taskEndDateTime);
   todoEnd.textContent = `Days to end: ${daysToEnd}`;
+  if (isNaN(daysToEnd)) {
+    todoEnd.textContent = ``;
+  }
   let doneBtn = document.createElement("button");
   doneBtn.textContent = "Not Done:(";
   doneBtn.classList.add("todo-item-btn");
@@ -205,5 +208,3 @@ function getCurrentDateTime(date) {
   let currentDate = Date.now();
   return Math.floor((endDate - currentDate) / 1000 / 60 / 60 / 24);
 }
-
-getCurrentDateTime();
