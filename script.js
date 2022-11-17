@@ -8,6 +8,7 @@ if (getArrayOfToDo()) {
 document.getElementById("form").addEventListener("submit", (event) => {
   console.log("submitted");
   event.preventDefault();
+
   getTaskFromInput();
 });
 console.log(getArrayOfToDo());
